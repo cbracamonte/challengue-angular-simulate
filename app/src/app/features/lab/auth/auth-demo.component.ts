@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { TokenStore } from './token-store';
 
 @Component({
   selector: 'app-auth-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule],
+  imports: [RouterLink, MatButtonModule],
   templateUrl: './auth-demo.component.html',
 })
 export class AuthDemo {

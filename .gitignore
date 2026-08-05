@@ -4,3 +4,4 @@
 # Herramientas locales / caches de agentes (no son fuente del proyecto)
 .remember/
 .atl/
+.playwright-mcp/

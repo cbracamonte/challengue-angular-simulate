@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, OnInit } from '@angular/core';
 import { PolicyService } from '../policy.service';
+import { Policy } from '../policy.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * REFERENCIA LEGACY — así se ve el código productivo heredado.
@@ -14,20 +16,22 @@ import { PolicyService } from '../policy.service';
   // código legacy real de un codebase Angular 14-18 es anterior a ese
   // default, así que tiene que optar explícitamente para poder declararse
   // dentro del NgModule de abajo.
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
 export class PolicyListLegacyComponent implements OnInit {
-  policies: any[] = [];
+  policies: Policy[] = [];
 
-  constructor(private policyService: PolicyService) {}
+  constructor(private policyService: PolicyService, private destroyRef: DestroyRef, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     // BUG: watchPolicies() nunca completa (es interval-based) y esta
     // subscription nunca se guarda ni se desuscribe. Cada vez que este
     // componente se crea y se destruye, queda un interval más corriendo
     // para siempre.
-    this.policyService.watchPolicies().subscribe((policies) => {
+    this.policyService.watchPolicies().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((policies) => {
       this.policies = policies;
+      this.cdr.markForCheck();
     });
   }
 

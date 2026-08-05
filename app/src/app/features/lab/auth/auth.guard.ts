@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 import { TokenStore } from './token-store';
 
 /**
- * TODO — Refactor Lab · Ejercicio 3 (parte 2: guard)
- *
- * Si TokenStore.isAuthenticated() es true, devolvé true.
- * Si no, devolvé un UrlTree hacia '/login' con Router.createUrlTree(['/login'])
- * — NO uses router.navigate() + return false (ver el bug en
- * legacy/auth.legacy-guard.ts).
- *
- * Corré: pnpm test --include='**\/auth.guard.spec.ts'
+ * Fundamento teórico (docs oficiales de Angular — API `CanActivateFn`): la
+ * firma del guard funcional documenta explícitamente sus tres resultados
+ * posibles — `true` deja continuar la navegación, `false` la cancela sin
+ * más, y un `UrlTree` cancela la navegación ACTUAL y arranca una nueva
+ * hacia esa URL, como una única operación de enrutamiento gestionada por
+ * el propio Router. Por eso alcanza con devolver el UrlTree: no hace falta
+ * (ni conviene) llamar además a `router.navigate()` — eso dispararía DOS
+ * navegaciones en paralelo (la bloqueada + la manual), que es exactamente
+ * el bug de legacy/auth.legacy-guard.ts.
  */
 export const authGuard: CanActivateFn = () => {
   const tokenStore = inject(TokenStore);
   const router = inject(Router);
 
-  // TODO: usar router.createUrlTree(['/login']) cuando no esté autenticado.
-  return tokenStore.isAuthenticated();
+  return tokenStore.isAuthenticated() ? true : router.createUrlTree(['/login']);
 };

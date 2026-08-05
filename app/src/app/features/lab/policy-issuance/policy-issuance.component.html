@@ -1,0 +1,28 @@
+<div class="mb-3 flex items-center justify-between text-sm">
+  <a routerLink="/lab" class="text-blue-600 hover:underline">← Refactor Lab</a>
+  <span class="text-xs text-slate-500">
+    Legacy (no rutable, abrila en tu editor):
+    <code class="rounded bg-amber-50 px-1 py-0.5 text-amber-800">
+      policy-issuance/legacy/policy-issuance-legacy.service.ts
+    </code>
+  </span>
+</div>
+
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+  <button
+    type="button"
+    class="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
+    (click)="submit()"
+  >
+    Emitir póliza de prueba
+  </button>
+  <p class="mt-3 text-sm text-slate-600">Estado: {{ store.status() }}</p>
+  @if (store.result(); as result) {
+    <p class="text-sm text-slate-600">Emitida: {{ result.policyId }}</p>
+  }
+  <p class="mt-2 text-xs text-slate-500">
+    El backoff exponencial de los reintentos se ve en el test
+    (<code>policy-issuance.store.spec.ts</code>) — la API mock de esta pantalla
+    responde siempre bien, así que acá no vas a ver reintentos.
+  </p>
+</div>
