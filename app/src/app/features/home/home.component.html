@@ -1,0 +1,75 @@
+<header class="mb-8">
+  <p class="text-sm font-medium tracking-wide text-blue-600 uppercase">
+    Simulación técnica · Frontend Developer Senior — GlobalTask
+  </p>
+  <h1 class="mt-1 text-3xl font-bold text-slate-900">Refactor y Modernización de Plataforma de Suscripción</h1>
+  <p class="mt-3 max-w-3xl text-slate-600">
+    Este workspace reproduce el foco real del rol: liderar el refactor de una arquitectura Angular
+    legacy (14–18) hacia patrones modernos (Standalone + Signals), sin romper RxJS/NgRx existente,
+    sosteniendo cobertura de pruebas y buenas prácticas de Git Flow. No es teoría: cada concepto
+    tiene un caso de error real, su causa raíz y el patrón correcto.
+  </p>
+</header>
+
+<section class="mb-10 grid gap-4 sm:grid-cols-3">
+  <a routerLink="/quiz" class="no-underline">
+    <mat-card class="h-full transition hover:shadow-lg">
+      <mat-card-header>
+        <mat-card-title>Quiz estilo TestGorilla</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Preguntas cronometradas por tema, con feedback inmediato y explicación del porqué de cada
+        respuesta.
+      </mat-card-content>
+    </mat-card>
+  </a>
+  <a routerLink="/lab" class="no-underline">
+    <mat-card class="h-full transition hover:shadow-lg">
+      <mat-card-header>
+        <mat-card-title>Refactor Lab</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        4 ejercicios TDD: código legacy con tests en rojo. Vos lo llevás a verde aplicando el patrón
+        moderno correcto.
+      </mat-card-content>
+    </mat-card>
+  </a>
+  <a routerLink="/live-coding" class="no-underline">
+    <mat-card class="h-full transition hover:shadow-lg">
+      <mat-card-header>
+        <mat-card-title>Live Coding Prep</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Brief cronometrado tipo pairing con cliente + checklist de Git Flow y code review.
+      </mat-card-content>
+    </mat-card>
+  </a>
+</section>
+
+<section>
+  <h2 class="mb-3 text-xl font-semibold text-slate-900">Mapa: requisito del puesto → dónde practicarlo</h2>
+  <div class="overflow-x-auto rounded-lg border border-slate-200">
+    <table class="w-full border-collapse text-left text-sm">
+      <thead class="bg-slate-50 text-slate-700">
+        <tr>
+          <th class="px-4 py-2 font-semibold">Requisito (JD)</th>
+          <th class="px-4 py-2 font-semibold">Dónde practicarlo</th>
+          <th class="px-4 py-2 font-semibold">Concepto (docs/concepts)</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of requirementMap; track row.requirement) {
+          <tr class="border-t border-slate-200">
+            <td class="px-4 py-2">{{ row.requirement }}</td>
+            <td class="px-4 py-2">
+              <a [routerLink]="row.routerLink.split('?')[0]" class="text-blue-600 hover:underline">{{
+                row.practiceWhere
+              }}</a>
+            </td>
+            <td class="px-4 py-2 font-mono text-xs text-slate-500">{{ row.docFile }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

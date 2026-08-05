@@ -1,0 +1,22 @@
+<h1 class="text-2xl font-bold text-slate-900">Refactor Lab</h1>
+<p class="mt-2 max-w-2xl text-slate-600">
+  4 ejercicios TDD. Cada uno tiene una versión <code>legacy/</code> de referencia (no la
+  edites) y un archivo objetivo con tests en rojo. El README de cada carpeta tiene el
+  detalle completo.
+</p>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-2">
+  @for (exercise of exercises; track exercise.slug) {
+    <a [routerLink]="exercise.slug" class="no-underline">
+      <mat-card class="h-full transition hover:shadow-lg">
+        <mat-card-header>
+          <mat-card-title>{{ exercise.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ exercise.summary }}</p>
+          <p class="mt-2 text-xs text-slate-500">JD: {{ exercise.jdRequirement }}</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  }
+</div>

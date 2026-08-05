@@ -1,0 +1,30 @@
+<div class="rounded-lg border border-green-300 bg-green-50 p-4">
+  <p class="mb-3 text-xs font-semibold tracking-wide text-green-800 uppercase">Moderno (tu implementación)</p>
+  <table class="w-full text-left text-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Titular</th>
+        <th>Prima</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (policy of policies(); track policy.id) {
+        <tr>
+          <td>{{ policy.id }}</td>
+          <td>{{ policy.holderName }}</td>
+          <td>{{ policy.premium }}</td>
+          <td>
+            @switch (policy.status) {
+              @case ('active') { Activa }
+              @case ('pending') { Pendiente }
+              @case ('cancelled') { Cancelada }
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <p class="mt-3 text-sm font-medium">Total: {{ totalPremium() }}</p>
+</div>

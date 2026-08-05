@@ -1,0 +1,19 @@
+<div class="rounded-lg border border-green-300 bg-green-50 p-4">
+  <p class="mb-3 text-xs font-semibold tracking-wide text-green-800 uppercase">
+    IncidentsStore (tu implementación)
+  </p>
+  <ul class="flex flex-col gap-2 text-sm">
+    @for (incident of store.incidents(); track incident.id) {
+      <li class="rounded-md border border-slate-200 bg-white px-3 py-2">
+        <p class="font-medium">{{ incident.title }}</p>
+        <p class="text-slate-500">
+          {{ incident.severity }} · asignado a {{ incident.assigneeName || '—' }}
+        </p>
+      </li>
+    } @empty {
+      <li class="text-slate-500">
+        Sin datos todavía — completá incidents-store.ts para que este signal se llene.
+      </li>
+    }
+  </ul>
+</div>

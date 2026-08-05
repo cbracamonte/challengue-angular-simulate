@@ -1,0 +1,64 @@
+<h1 class="text-2xl font-bold text-slate-900">Live Coding Prep</h1>
+<p class="mt-2 max-w-2xl text-slate-600">
+  Simulá un pairing con el cliente: elegí un brief, arrancá el timer, pensá en voz alta como si
+  alguien te estuviera escuchando. Al final, repasá el checklist de Git Flow / code review.
+</p>
+
+<section class="mt-6 grid gap-2 sm:grid-cols-3">
+  @for (brief of briefs; track brief.id) {
+    <button
+      type="button"
+      (click)="selectBrief(brief)"
+      class="rounded-md border px-3 py-2 text-left text-sm"
+      [class.border-blue-500]="selectedBrief().id === brief.id"
+      [class.bg-blue-50]="selectedBrief().id === brief.id"
+      [class.border-slate-200]="selectedBrief().id !== brief.id"
+    >
+      {{ brief.title }}
+      <span class="block text-xs text-slate-500">{{ brief.timeLimitMinutes }} min</span>
+    </button>
+  }
+</section>
+
+<section class="mt-6 rounded-lg border border-slate-200 bg-white p-5">
+  <p class="text-base font-medium text-slate-900">{{ selectedBrief().clientPrompt }}</p>
+
+  <div class="mt-4 flex items-center gap-3">
+    <span class="font-mono text-2xl" [class.text-red-600]="isOverBudget()">{{ elapsedLabel() }}</span>
+    <button mat-flat-button color="primary" (click)="toggleStart()">
+      {{ isRunning() ? 'Pausar' : 'Arrancar' }}
+    </button>
+    <button mat-stroked-button (click)="reset()">Reiniciar</button>
+    @if (isOverBudget()) {
+      <span class="text-sm text-red-600">Pasaste el tiempo límite — así se siente la presión real.</span>
+    }
+  </div>
+
+  <details class="mt-4 text-sm text-slate-600">
+    <summary class="cursor-pointer font-medium">Qué evalúa un entrevistador senior acá (abrir al terminar)</summary>
+    <ul class="mt-2 list-disc pl-5">
+      @for (item of selectedBrief().hiddenExpectations; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </details>
+</section>
+
+<section class="mt-6">
+  <h2 class="mb-3 text-lg font-semibold text-slate-900">Checklist Git Flow / Code Review</h2>
+  <ul class="flex flex-col gap-2">
+    @for (item of checklist; track item) {
+      <li>
+        <label class="flex cursor-pointer items-start gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm">
+          <input
+            type="checkbox"
+            class="mt-0.5"
+            [checked]="checkedItems().has(item)"
+            (change)="toggleChecklistItem(item)"
+          />
+          {{ item }}
+        </label>
+      </li>
+    }
+  </ul>
+</section>

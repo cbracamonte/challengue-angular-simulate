@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Herramientas locales / caches de agentes (no son fuente del proyecto)
+.remember/
+.atl/

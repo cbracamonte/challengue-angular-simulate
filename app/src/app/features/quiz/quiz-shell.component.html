@@ -1,0 +1,110 @@
+@switch (store.status()) {
+  @case ('idle') {
+    <section class="mx-auto max-w-2xl">
+      <h1 class="text-2xl font-bold text-slate-900">Quiz estilo TestGorilla</h1>
+      <p class="mt-2 text-slate-600">
+        Elegí temas (o dejalos todos tildados) y arrancá. Cada pregunta tiene un tiempo límite; una
+        vez que respondés, ves de inmediato por qué esa opción es correcta o no.
+      </p>
+
+      <fieldset class="mt-6 grid gap-2 sm:grid-cols-2">
+        @for (topic of allTopics; track topic) {
+          <label class="flex cursor-pointer items-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm">
+            <input
+              type="checkbox"
+              [checked]="selectedTopics().includes(topic)"
+              (change)="toggleTopic(topic)"
+            />
+            {{ topicLabels[topic] }}
+          </label>
+        }
+      </fieldset>
+
+      <p class="mt-3 text-xs text-slate-500">{{ poolSize() }} pregunta(s) disponibles con este filtro.</p>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="mt-4"
+        [disabled]="poolSize() === 0"
+        (click)="start()"
+      >
+        Empezar quiz
+      </button>
+    </section>
+  }
+
+  @case ('running') {
+    @if (store.currentQuestion(); as question) {
+      <section class="mx-auto max-w-2xl">
+        <div class="mb-3 flex items-center justify-between text-sm text-slate-500">
+          <span>{{ store.progressLabel() }} · {{ topicLabels[question.topic] }}</span>
+          <span class="font-mono" [class.text-red-600]="store.timeRemaining() <= 10">
+            {{ store.timeRemaining() }}s
+          </span>
+        </div>
+        <mat-progress-bar
+          mode="determinate"
+          [value]="(store.timeRemaining() / question.timeLimitSeconds) * 100"
+        />
+
+        <div class="mt-4">
+          <app-question-card
+            [question]="question"
+            [selectedOptionId]="store.selectedOptionId()"
+            (select)="store.selectAnswer($event)"
+          />
+        </div>
+
+        @if (store.hasAnswered()) {
+          <div
+            class="mt-4 rounded-md border p-4 text-sm"
+            [class.border-green-300]="store.isSelectedCorrect()"
+            [class.bg-green-50]="store.isSelectedCorrect()"
+            [class.border-red-300]="!store.isSelectedCorrect()"
+            [class.bg-red-50]="!store.isSelectedCorrect()"
+          >
+            <p class="font-semibold">
+              {{ store.isSelectedCorrect() ? '✓ Correcto' : '✗ Incorrecto' }}
+            </p>
+            <p class="mt-1 text-slate-700">{{ question.explanation }}</p>
+          </div>
+
+          <button mat-flat-button color="primary" class="mt-4" (click)="store.confirmAndNext()">
+            {{ store.isLastQuestion() ? 'Ver resultados' : 'Siguiente pregunta' }}
+          </button>
+        }
+      </section>
+    }
+  }
+
+  @case ('finished') {
+    <section class="mx-auto max-w-2xl">
+      <h1 class="text-2xl font-bold text-slate-900">Resultado</h1>
+      <p class="mt-2 text-lg text-slate-700">
+        {{ store.score() }} / {{ store.answered().length }} correctas ({{ store.scorePercent() }}%)
+      </p>
+
+      <div class="mt-6 grid gap-2">
+        @for (row of store.topicBreakdown(); track row.topic) {
+          <div class="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2 text-sm">
+            <span>{{ row.label }}</span>
+            <span class="font-mono" [class.text-red-600]="row.percent < 60">
+              {{ row.correct }}/{{ row.total }} ({{ row.percent }}%)
+            </span>
+          </div>
+        }
+      </div>
+
+      <p class="mt-4 text-sm text-slate-600">
+        Temas con menos de 60% son tu prioridad de repaso en <code>docs/concepts/</code> antes del
+        challenge real.
+      </p>
+
+      <div class="mt-6 flex gap-3">
+        <button mat-flat-button color="primary" (click)="restart()">Repetir con otros temas</button>
+        <a mat-stroked-button routerLink="/lab">Ir al Refactor Lab</a>
+      </div>
+    </section>
+  }
+}

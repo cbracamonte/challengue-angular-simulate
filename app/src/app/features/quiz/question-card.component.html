@@ -1,0 +1,24 @@
+<article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+  <p class="text-base font-medium text-slate-900">{{ question().prompt }}</p>
+
+  @if (question().code) {
+    <pre class="mt-3 overflow-x-auto rounded-md bg-slate-900 p-3 text-xs text-slate-100"><code>{{ question().code }}</code></pre>
+  }
+
+  <ul class="mt-4 flex flex-col gap-2">
+    @for (option of question().options; track option.id) {
+      <li>
+        <button
+          type="button"
+          (click)="select.emit(option.id)"
+          class="w-full rounded-md border px-3 py-2 text-left text-sm transition"
+          [class.border-blue-500]="selectedOptionId() === option.id"
+          [class.bg-blue-50]="selectedOptionId() === option.id"
+          [class.border-slate-200]="selectedOptionId() !== option.id"
+        >
+          {{ option.text }}
+        </button>
+      </li>
+    }
+  </ul>
+</article>

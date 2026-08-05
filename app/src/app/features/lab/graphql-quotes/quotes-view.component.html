@@ -1,0 +1,29 @@
+<div class="grid gap-4 sm:grid-cols-2">
+  <div class="rounded-lg border border-slate-200 bg-white p-4">
+    <p class="mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase">REST</p>
+    @if (store.restQuotes.isLoading()) {
+      <p class="text-sm text-slate-500">Cargando…</p>
+    }
+    <ul class="flex flex-col gap-2 text-sm">
+      @for (quote of store.restQuotes.value(); track quote.id) {
+        <li class="rounded-md border border-slate-200 px-3 py-2">
+          {{ quote.product }} · {{ quote.monthlyPremium }}/mes
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="rounded-lg border border-slate-200 bg-white p-4">
+    <p class="mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase">GraphQL</p>
+    @if (store.graphqlQuotes.isLoading()) {
+      <p class="text-sm text-slate-500">Cargando…</p>
+    }
+    <ul class="flex flex-col gap-2 text-sm">
+      @for (quote of store.graphqlQuotes.value(); track quote.id) {
+        <li class="rounded-md border border-slate-200 px-3 py-2">
+          {{ quote.product }} · {{ quote.monthlyPremium }}/mes
+        </li>
+      }
+    </ul>
+  </div>
+</div>
