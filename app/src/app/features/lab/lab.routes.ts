@@ -93,4 +93,16 @@ export const LAB_ROUTES: Routes = [
     loadComponent: () =>
       import('./policy-form/legacy/policy-form-legacy.component').then((m) => m.PolicyFormLegacyComponent),
   },
+  {
+    path: 'premium-calculator',
+    loadComponent: () =>
+      import('./premium-calculator/premium-calculator.component').then((m) => m.PremiumCalculatorComponent),
+  },
+  {
+    path: 'premium-calculator/legacy',
+    loadComponent: () =>
+      import('./premium-calculator/legacy/premium-calculator-legacy.component').then(
+        (m) => m.PremiumCalculatorLegacyComponent,
+      ),
+  },
 ];

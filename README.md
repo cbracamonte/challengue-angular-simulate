@@ -15,7 +15,7 @@ app/                      → workspace Angular 22 (Karma/Jasmine, Playwright, T
   src/app/features/
     home/                  → mapa: requisito del JD → dónde practicarlo
     quiz/                  → quiz estilo TestGorilla (cronometrado, feedback inmediato)
-    lab/                   → 10 ejercicios TDD (legacy → moderno)
+    lab/                   → 11 ejercicios TDD (legacy → moderno)
     live-coding/           → brief cronometrado + checklist de Git Flow/code review
 docs/concepts/             → 11 casos estilo Harvard: patrón malo → error real → causa → fix → patrón bueno
 .claude/skills/            → 19 skills de referencia (arquitectura, DDD, TDD, patrones) instaladas para este proyecto
@@ -36,7 +36,7 @@ pnpm build           # build de producción
 
 1. **`docs/concepts/`** — leelos todos una vez, aunque sea rápido. Son
    cortos a propósito: concepto directo, sin relleno.
-2. **`/lab`** en la app — resolvé los 10 ejercicios en orden. Cada uno tiene
+2. **`/lab`** en la app — resolvé los 11 ejercicios en orden. Cada uno tiene
    tests en rojo que tenés que llevar a verde. No mires la carpeta
    `legacy/` de cada uno como "para copiar" — es la referencia de lo que
    vas a heredar en el trabajo real, no la solución.
@@ -65,6 +65,7 @@ pnpm build           # build de producción
 | Angular moderno: zoneless, Signals vs zone.js | `lab/live-counter` | README propio + `01` |
 | Angular moderno: signal queries vs @ViewChild | `lab/recent-policies` | README propio + `01` |
 | Formularios reactivos | `lab/policy-form` | README propio + `01` |
+| Angular moderno: Signals en profundidad (linkedSignal, effect, untracked) | `lab/premium-calculator` | README propio + `01` |
 
 ## Nota honesta
 

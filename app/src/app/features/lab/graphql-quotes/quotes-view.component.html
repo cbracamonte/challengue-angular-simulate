@@ -1,31 +1,49 @@
-<div class="mb-3">
-  <a routerLink="/lab" class="text-sm text-blue-600 hover:underline">← Refactor Lab</a>
+<div class="mb-6 border-b border-slate-200 pb-4">
+  <a
+    routerLink="/lab"
+    class="inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-blue-600"
+  >
+    <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        fill-rule="evenodd"
+        d="M12.79 5.23a.75.75 0 0 1 0 1.06L9.06 10l3.73 3.71a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+    Refactor Lab
+  </a>
 </div>
 
 <div class="grid gap-4 sm:grid-cols-2">
-  <div class="rounded-lg border border-slate-200 bg-white p-4">
-    <p class="mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase">REST</p>
+  <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">
+      REST
+    </span>
     @if (store.restQuotes.isLoading()) {
-      <p class="text-sm text-slate-500">Cargando…</p>
+      <p class="mt-4 text-sm text-slate-500">Cargando…</p>
     }
-    <ul class="flex flex-col gap-2 text-sm">
+    <ul class="mt-4 flex flex-col gap-2 text-sm">
       @for (quote of store.restQuotes.value(); track quote.id) {
-        <li class="rounded-md border border-slate-200 px-3 py-2">
-          {{ quote.product }} · {{ quote.monthlyPremium }}/mes
+        <li class="rounded-lg border border-slate-200 px-3 py-2.5 transition-colors hover:border-blue-300 hover:bg-blue-50/40">
+          <span class="font-medium text-slate-900">{{ quote.product }}</span>
+          <span class="text-slate-500"> · {{ quote.monthlyPremium }}/mes</span>
         </li>
       }
     </ul>
   </div>
 
-  <div class="rounded-lg border border-slate-200 bg-white p-4">
-    <p class="mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase">GraphQL</p>
+  <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700">
+      GraphQL
+    </span>
     @if (store.graphqlQuotes.isLoading()) {
-      <p class="text-sm text-slate-500">Cargando…</p>
+      <p class="mt-4 text-sm text-slate-500">Cargando…</p>
     }
-    <ul class="flex flex-col gap-2 text-sm">
+    <ul class="mt-4 flex flex-col gap-2 text-sm">
       @for (quote of store.graphqlQuotes.value(); track quote.id) {
-        <li class="rounded-md border border-slate-200 px-3 py-2">
-          {{ quote.product }} · {{ quote.monthlyPremium }}/mes
+        <li class="rounded-lg border border-slate-200 px-3 py-2.5 transition-colors hover:border-violet-300 hover:bg-violet-50/40">
+          <span class="font-medium text-slate-900">{{ quote.product }}</span>
+          <span class="text-slate-500"> · {{ quote.monthlyPremium }}/mes</span>
         </li>
       }
     </ul>

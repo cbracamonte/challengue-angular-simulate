@@ -1,27 +1,38 @@
-<div class="mb-3 flex items-center justify-between text-sm">
-  <a routerLink="/lab" class="text-blue-600 hover:underline">← Refactor Lab</a>
-  <span class="text-xs text-slate-500">
+<div class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+  <a
+    routerLink="/lab"
+    class="inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-blue-600"
+  >
+    <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        fill-rule="evenodd"
+        d="M12.79 5.23a.75.75 0 0 1 0 1.06L9.06 10l3.73 3.71a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+    Refactor Lab
+  </a>
+  <div class="inline-flex flex-wrap items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500"></span>
     Legacy (no rutable, abrila en tu editor):
-    <code class="rounded bg-amber-50 px-1 py-0.5 text-amber-800">
-      incidents-store/legacy/incidents.legacy.service.ts
-    </code>
-  </span>
+    <code class="font-mono text-amber-800">incidents-store/legacy/incidents.legacy.service.ts</code>
+  </div>
 </div>
 
-<div class="rounded-lg border border-green-300 bg-green-50 p-4">
-  <p class="mb-3 text-xs font-semibold tracking-wide text-green-800 uppercase">
+<div class="rounded-xl border border-emerald-200 bg-emerald-50/60 p-5 shadow-sm">
+  <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800">
     IncidentsStore (tu implementación)
-  </p>
-  <ul class="flex flex-col gap-2 text-sm">
+  </span>
+  <ul class="mt-4 flex flex-col gap-2 text-sm">
     @for (incident of store.incidents(); track incident.id) {
-      <li class="rounded-md border border-slate-200 bg-white px-3 py-2">
-        <p class="font-medium">{{ incident.title }}</p>
-        <p class="text-slate-500">
+      <li class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 shadow-sm transition-colors hover:border-emerald-300">
+        <p class="font-medium text-slate-900">{{ incident.title }}</p>
+        <p class="mt-0.5 text-slate-500">
           {{ incident.severity }} · asignado a {{ incident.assigneeName || '—' }}
         </p>
       </li>
     } @empty {
-      <li class="text-slate-500">
+      <li class="rounded-lg border border-dashed border-slate-300 px-3 py-3 text-slate-500">
         Sin datos todavía — completá incidents-store.ts para que este signal se llene.
       </li>
     }

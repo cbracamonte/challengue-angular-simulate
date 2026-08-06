@@ -18,7 +18,46 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 @Component({
   selector: 'app-live-counter',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<p>Pólizas emitidas hoy: {{ count() }}</p>`,
+  // Nota: este template usa <a href> plano (no routerLink/RouterLink) a
+  // propósito. El spec de este componente crea el fixture sin
+  // TestBed.configureTestingModule ni provideRouter(), así que inyectar
+  // RouterLink (que requiere ActivatedRoute/Router) haría explotar el test
+  // con NG0201 apenas se crea el componente.
+  template: `
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+      <a
+        href="/lab"
+        class="inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-blue-600"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M12.79 5.23a.75.75 0 0 1 0 1.06L9.06 10l3.73 3.71a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Refactor Lab
+      </a>
+      <a
+        href="/lab/live-counter/legacy"
+        class="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 transition-colors hover:border-amber-300 hover:bg-amber-100"
+      >
+        Ver versión legacy →
+      </a>
+    </div>
+
+    <div class="rounded-xl border border-emerald-200 bg-emerald-50/60 p-5 shadow-sm">
+      <span
+        class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800"
+      >
+        Signal reactivo
+      </span>
+      <p class="mt-4 text-sm text-slate-700">
+        Pólizas emitidas hoy:
+        <span class="text-2xl font-bold tabular-nums text-emerald-700">{{ count() }}</span>
+      </p>
+    </div>
+  `,
 })
 export class LiveCounterComponent {
   count = signal(0);

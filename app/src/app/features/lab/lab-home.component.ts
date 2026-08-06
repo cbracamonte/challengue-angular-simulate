@@ -107,5 +107,14 @@ export class LabHome {
       legacyPath: 'policy-form/legacy/policy-form-legacy.component.ts',
       legacyRoute: 'policy-form/legacy',
     },
+    {
+      slug: 'premium-calculator',
+      title: '11 · premium-calculator',
+      summary: 'signal() kept "en sincro" a mano con effect() → linkedSignal() writable que se resetea solo al cambiar de tier.',
+      jdRequirement: 'Angular moderno (Signals: linkedSignal, effect, untracked)',
+      available: true,
+      legacyPath: 'premium-calculator/legacy/premium-calculator-legacy.component.ts',
+      legacyRoute: 'premium-calculator/legacy',
+    },
   ];
 }
